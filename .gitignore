@@ -1,0 +1,20 @@
+# Build artifacts
+web/solitaire.wasm
+web/wasm_exec.js
+/solitaire
+/solitaire.exe
+*.exe
+*.test
+*.out
+coverage*.txt
+dist/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Node (local headless verification only)
+node_modules/
+package-lock.json
