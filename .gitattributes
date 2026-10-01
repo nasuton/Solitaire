@@ -16,3 +16,4 @@
 Makefile text eol=lf
 *.png binary
 *.wasm binary
+LICENSE text eol=lf
