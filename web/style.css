@@ -1,0 +1,91 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f4f6f4;
+  --fg: #1d2a22;
+  --accent: #1f5f3a;
+  --muted: #5b6b61;
+  --card: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111814;
+    --fg: #e6ece8;
+    --accent: #8fd3a8;
+    --muted: #a3b2a9;
+    --card: #1a231d;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", Meiryo, sans-serif;
+  line-height: 1.6;
+}
+
+.site-header, main, .site-footer {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.site-header { padding-top: 1.25rem; }
+.site-header h1 { margin: 0 0 0.25rem; font-size: 1.75rem; }
+.lead { margin: 0 0 1rem; color: var(--muted); }
+
+.game-frame {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  max-height: 85vh;
+  min-height: 420px;
+  background: var(--accent);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.game-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.hint { margin: 0.5rem 0 1.5rem; color: var(--muted); font-size: 0.9rem; }
+
+.help {
+  background: var(--card);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.help h2 { margin-top: 0; font-size: 1.25rem; }
+.help ul { margin: 0; padding-left: 1.25rem; }
+.help li { margin: 0.35rem 0; }
+
+kbd {
+  display: inline-block;
+  padding: 0 0.4em;
+  border: 1px solid var(--muted);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.9em;
+  background: var(--bg);
+}
+
+code { font-family: ui-monospace, Consolas, monospace; }
+
+a { color: var(--accent); }
+
+.site-footer { padding-bottom: 2rem; color: var(--muted); font-size: 0.9rem; }
+
+@media (max-width: 600px) {
+  .game-frame { aspect-ratio: 3 / 4; min-height: 360px; }
+}

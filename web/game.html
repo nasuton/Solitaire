@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="クロンダイク・ソリティア（Go / Ebitengine, WebAssembly）のゲーム画面。">
+  <title>Klondike Solitaire - ゲーム画面</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; background: #1f5f3a; }
+    #loading {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      color: #fff; font-family: system-ui, sans-serif; font-size: 1.25rem; pointer-events: none;
+    }
+    #error { color: #ffb4b4; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <div id="loading" role="status" aria-live="polite">読み込み中…</div>
+  <script src="wasm_exec.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

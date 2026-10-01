@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Go と Ebitengine で実装したクロンダイク・ソリティア（山札 1 枚めくり）。WebAssembly としてブラウザ上で動作します。">
+  <title>Klondike Solitaire - Go / Ebitengine</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>Klondike Solitaire</h1>
+    <p class="lead">Go + Ebitengine 製のクロンダイク・ソリティア（山札 1 枚めくり）。WebAssembly でブラウザ上で動作します。</p>
+  </header>
+
+  <main>
+    <div class="game-frame">
+      <iframe id="game" src="game.html" title="ソリティアのゲーム画面（マウスまたはタッチでカードを操作します）" allow="fullscreen"></iframe>
+    </div>
+    <p class="hint">画面が小さいときは <a id="direct-link" href="game.html">ゲーム画面を単独で開く</a>。</p>
+
+    <section class="help" aria-labelledby="help-title">
+      <h2 id="help-title">遊び方・操作</h2>
+      <ul>
+        <li>カードをドラッグ＆ドロップで移動します。表向きの連なりはまとめて移動できます。不正な移動は元の位置に戻ります。</li>
+        <li>山札をクリック（または <kbd>Space</kbd>）で 1 枚めくります。山札が尽きたら再度クリックで捨て札を山札に戻します（スコア −100）。</li>
+        <li>カードをダブルクリック（タップ 2 回）すると、可能なら組札へ自動で移動します。</li>
+        <li><kbd>N</kbd>: 新規ゲーム ／ <kbd>R</kbd>: 同じ配牌でやり直し ／ <kbd>Ctrl</kbd>+<kbd>Z</kbd>: 1 手戻す ／ <kbd>A</kbd>: 自動完了（山札・捨て札が空で場札が全て表向きのとき）</li>
+        <li>URL に <code>?seed=12345</code> のように付けると同じ配牌を再現できます。現在の seed は画面左上に表示され、URL にも反映されます。</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><a href="https://github.com/nasuton/Solitaire">ソースコード（GitHub）</a></p>
+  </footer>
+
+  <script>
+    // ?seed=... を iframe と単独リンクへ引き継ぐ。
+    (function () {
+      var q = window.location.search;
+      if (!q) return;
+      document.getElementById("game").src = "game.html" + q;
+      document.getElementById("direct-link").href = "game.html" + q;
+    })();
+  </script>
+</body>
+</html>
