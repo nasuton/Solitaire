@@ -50,7 +50,13 @@ WebAssembly にビルドして GitHub Pages で公開でき、Windows / macOS / 
 
 ## ビルドと実行
 
-Go 1.26 以降が必要です。
+Go 1.26 以降が必要です。Linux（Debian / Ubuntu）でデスクトップ版をビルド・テストする場合は Ebitengine の依存ライブラリも必要です。
+
+```sh
+sudo apt-get install -y libgl1-mesa-dev libxcursor-dev libxi-dev libxinerama-dev libxrandr-dev libxxf86vm-dev libasound2-dev pkg-config
+```
+
+Windows / macOS では追加のライブラリは不要です（他の環境は [Ebitengine のインストール手順](https://ebitengine.org/en/documents/install.html) を参照）。
 
 ```sh
 # デスクトップ版
@@ -131,4 +137,6 @@ UI 文字の描画には [bitmapfont/v4](https://github.com/hajimehoshi/bitmapfo
 
 ## ライセンス
 
-本リポジトリのソースコードのライセンスは未定です（記入してください）。カード画像は上記「画像出典」に従います。
+本リポジトリのソースコードは [MIT License](LICENSE)（Copyright (c) 2026 nasuton）です。
+`assets/cards/` のカード画像は別ライセンスであり MIT の対象外です。上記「画像出典」に従ってください。
+フォント由来のアトラス（`internal/uifont/atlas.png`）については [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) を参照してください。

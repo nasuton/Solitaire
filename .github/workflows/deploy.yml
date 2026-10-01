@@ -23,6 +23,13 @@ jobs:
           go-version-file: go.mod
           cache: true
 
+      # Ebitengine をホスト（linux/amd64）向けにビルドするための開発ライブラリ
+      # https://ebitengine.org/en/documents/install.html#Debian_/_Ubuntu
+      - name: Install Ebitengine build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgl1-mesa-dev libxcursor-dev libxi-dev libxinerama-dev libxrandr-dev libxxf86vm-dev libasound2-dev pkg-config
+
       - name: Check formatting
         run: |
           test -z "$(gofmt -l .)" || { gofmt -l .; echo "gofmt: 未整形のファイルがあります"; exit 1; }
