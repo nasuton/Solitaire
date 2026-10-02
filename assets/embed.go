@@ -1,5 +1,5 @@
 // Package assets はカード画像を embed でバイナリに埋め込む。
-// 画像は tools/resize で元画像から生成したもの（cards/*.png）。
+// 画像は tools/cardgen で生成した自作のもの（cards/*.png）。
 package assets
 
 import "embed"

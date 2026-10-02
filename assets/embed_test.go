@@ -41,7 +41,7 @@ func TestAllCardImagesEmbedded(t *testing.T) {
 	if w == 0 || h == 0 {
 		t.Fatal("no image size read")
 	}
-	// 元画像 712x1008 の縦横比が維持されていること。
+	// 生成時の縦横比（180x255 ≒ 712:1008）が維持されていること。
 	ratio := float64(h) / float64(w)
 	if ratio < 1.40 || ratio > 1.43 {
 		t.Errorf("aspect ratio %.3f out of expected range", ratio)
@@ -54,9 +54,6 @@ func TestCardFileNames(t *testing.T) {
 	}
 	if got := cardfiles.Name(klondike.Spades, klondike.King); got != "spades_13.png" {
 		t.Errorf("Name = %q", got)
-	}
-	if got := cardfiles.SourceRelPath(klondike.Hearts, 10); got != "Hearts/torannpu-Hearts10.png" {
-		t.Errorf("SourceRelPath = %q", got)
 	}
 	if got := cardfiles.Path(klondike.Diamonds, klondike.Queen); got != "cards/diamonds_12.png" {
 		t.Errorf("Path = %q", got)

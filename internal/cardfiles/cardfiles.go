@@ -23,14 +23,6 @@ var suitNames = map[klondike.Suit]string{
 	klondike.Spades:   "spades",
 }
 
-// sourceDirs は元画像（torannpu）側のフォルダ名。
-var sourceDirs = map[klondike.Suit]string{
-	klondike.Clubs:    "Clubs",
-	klondike.Diamonds: "Diamonds",
-	klondike.Hearts:   "Hearts",
-	klondike.Spades:   "Spades",
-}
-
 // Name はスートとランクからリポジトリ内のファイル名（例: "clubs_01.png"）を返す。
 func Name(s klondike.Suit, r klondike.Rank) string {
 	return fmt.Sprintf("%s_%02d.png", suitNames[s], int(r))
@@ -45,13 +37,3 @@ func Path(s klondike.Suit, r klondike.Rank) string {
 func BackPath() string {
 	return path.Join(Dir, BackName)
 }
-
-// SourceRelPath は元画像フォルダ内の相対パス（例: "Clubs/torannpu-Clubs1.png"）を返す。
-// スラッシュ区切りなので、OS パスに変換する場合は filepath.FromSlash を使う。
-func SourceRelPath(s klondike.Suit, r klondike.Rank) string {
-	dir := sourceDirs[s]
-	return path.Join(dir, fmt.Sprintf("torannpu-%s%d.png", dir, int(r)))
-}
-
-// SourceBackRelPath は元画像フォルダ内の裏面画像の相対パスを返す。
-const SourceBackRelPath = "torannpu-BackSide.png"

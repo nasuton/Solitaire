@@ -12,21 +12,21 @@
     serve   - wasm + http://127.0.0.1:8080/ で配信
     desktop - デスクトップ版 solitaire.exe をビルド
     test    - gofmt / go vet / go test / wasm 向け vet
-    assets  - 元画像からカード画像を再生成（-Src で元画像フォルダを指定）
+    assets  - カード画像（52 枚 + 裏面）を自前で生成し直す（-Width / -Height）
     fontgen - UI 文言からフォントアトラスを再生成
     clean   - 生成物を削除
 
 .EXAMPLE
     .\build.ps1 serve
-    .\build.ps1 assets -Src D:\work\Go\torannpu
+    .\build.ps1 assets -Width 180 -Height 255
 #>
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
     [ValidateSet('wasm', 'serve', 'desktop', 'test', 'assets', 'fontgen', 'clean')]
     [string]$Task = 'wasm',
-    [string]$Src = '..\torannpu',
-    [int]$Width = 180
+    [int]$Width = 180,
+    [int]$Height = 255
 )
 
 $ErrorActionPreference = 'Stop'
@@ -110,7 +110,7 @@ try {
             Invoke-Checked $go @('test', './...')
         }
         'assets' {
-            Invoke-Checked $go @('run', './tools/resize', '-src', $Src, '-dst', 'assets/cards', '-width', "$Width")
+            Invoke-Checked $go @('run', './tools/cardgen', '-out', 'assets/cards', '-width', "$Width", '-height', "$Height")
         }
         'fontgen' {
             Invoke-Checked $go @('run', './tools/fontgen', '-src', 'internal/ui', '-out', 'internal/uifont')

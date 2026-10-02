@@ -23,10 +23,9 @@ test:
 desktop:
 	go build -o solitaire$(if $(filter Windows_NT,$(OS)),.exe,) ./cmd/solitaire
 
-## 元画像から縮小済みカード画像を再生成する（SRC に元画像フォルダを指定）。
-SRC ?= ../torannpu
+## カード画像（52 枚 + 裏面）を自前で生成し直す。
 assets:
-	go run ./tools/resize -src "$(SRC)" -dst assets/cards -width 180
+	go run ./tools/cardgen -out assets/cards -width 180 -height 255
 
 ## UI 文言からフォントアトラスを再生成する。
 fontgen:
