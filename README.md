@@ -16,6 +16,7 @@ WebAssembly にビルドして GitHub Pages で公開でき、Windows / macOS / 
 - 手数・経過時間・スコア（Windows ソリティア準拠の標準採点）
 - 自動完了（山札・捨て札が空で場札が全て表向きのとき、1 手ずつアニメーションで組札へ）
 - クリア演出（カードが跳ねる）
+- カード画像は外部素材に依存せず、Go で描画して生成した自作（`tools/cardgen`）
 - seed による配牌の再現（URL クエリ `?seed=12345`）
 - ウィンドウ / ブラウザ幅に応じたレイアウト（縦長画面にも対応）
 - 日本語 UI（使用文字だけを事前生成したビットマップフォントのグリフアトラスを使用。フォント本体は同梱しない）
@@ -99,8 +100,8 @@ internal/assets/      埋め込み画像のロード
 internal/cardfiles/   スート・ランク → ファイル名のマッピング（画像差し替え時はここを変更）
 internal/uifont/      生成済みフォントアトラスと描画
 internal/platform/    ブラウザ / デスクトップ差分（URL の seed、デバッグ API）
-assets/cards/         縮小済みカード画像（embed）
-tools/resize/         元画像からカード画像を縮小生成
+assets/cards/         生成済みカード画像（embed）
+tools/cardgen/        カード画像（52 枚 + 裏面）を Go で描画して生成
 tools/fontgen/        UI 文言からフォントアトラスを生成
 tools/serve/          開発用静的サーバ
 tools/e2e/            headless ブラウザによる検証スクリプト
@@ -109,10 +110,11 @@ web/                  index.html / game.html / main.js / style.css（Pages の�
 
 ### カード画像の再生成
 
-元画像（712×1008px PNG）を `golang.org/x/image/draw` の CatmullRom で縮小して `assets/cards/` に配置します。
+カード画像は外部素材を使わず、`tools/cardgen` が標準ライブラリと `golang.org/x/image` だけで描画して生成します
+（スートマークはベジェ曲線、ランク文字は Go フォント `gobold`）。デザインを変えたら再生成してコミットします。
 
 ```sh
-go run ./tools/resize -src /path/to/torannpu -dst assets/cards -width 180
+go run ./tools/cardgen -out assets/cards -width 180 -height 255
 ```
 
 ### フォントアトラスの再生成
@@ -126,7 +128,9 @@ go run ./tools/fontgen -src internal/ui -out internal/uifont
 
 ## 画像出典
 
-カード画像の出典・ライセンス: **（記入してください）**
+カード画像（`assets/cards/*.png`）は本リポジトリの `tools/cardgen` で生成した自作のもので、ソースコードと同じ MIT License です。
+ランク文字の描画に使用した [Go フォント](https://go.dev/blog/go-fonts)（`gobold`、BSD-3-Clause）のライセンスは
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) を参照してください。
 
 ## フォント・ライセンス
 
@@ -137,6 +141,5 @@ UI 文字の描画には [bitmapfont/v4](https://github.com/hajimehoshi/bitmapfo
 
 ## ライセンス
 
-本リポジトリのソースコードは [MIT License](LICENSE)（Copyright (c) 2026 nasuton）です。
-`assets/cards/` のカード画像は別ライセンスであり MIT の対象外です。上記「画像出典」に従ってください。
+本リポジトリのソースコードおよびカード画像（`assets/cards/`）は [MIT License](LICENSE)（Copyright (c) 2026 nasuton）です。
 フォント由来のアトラス（`internal/uifont/atlas.png`）については [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) を参照してください。

@@ -22,8 +22,6 @@ SOFTWARE.
 
 ---
 
-Note: The card images under assets/cards/ are NOT covered by this license.
-They are third-party works distributed under their own terms; see the
-"画像出典" (image credits) section in README.md. Font-derived assets
-(internal/uifont/atlas.png) are covered by the notices in
+Note: Third-party font-derived assets (internal/uifont/atlas.png) and the
+Go font used to render card images are covered by the notices in
 THIRD_PARTY_NOTICES.md.
